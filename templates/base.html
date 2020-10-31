@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+	<meta charset="UTF-8">  
+	<link rel="stylesheet" href='{% static "bootstrap.min.css" %}'>
+	<title>Моя библиотека</title>  
+</head>  
+<body>  
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      Моя библиотека
+    </div>
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'books' %}">Книги</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'author_list' %}">Авторы</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'publishers' %}">Издатели</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'friends' %}">Друзья</a></li>
+    </ul>
+    {% if user.is_authenticated %}
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'book-add' %}">Добавить книгу</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'author_create' %}">Добавить автора</a></li>
+    </ul>
+    <ul class="nav">
+        {% if user.is_staff %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Админка</a></li>
+        {% endif %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'userprofile' %}">Профиль</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">Выйти</a></li>
+    </ul>
+    {% else %}
+    <ul class="nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Войти</a></li>
+    </ul>
+    {% endif %}
+  </div>
+</nav>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+
+</body>  
+</html>

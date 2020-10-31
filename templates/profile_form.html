@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load account %}
+{% load socialaccount %}
+
+{% block content %}
+<h3>{% user_display user %}</h3>
+
+{% get_social_accounts user as accounts %}
+ 
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить">
+</form>
+{% if accounts and accounts.github %}
+  {% with accounts.github|first as acc %}
+    <table>
+    {% for key, value in acc.extra_data.items %}
+    <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+    {% endfor %}
+    </table>
+  {% endwith %}
+{% endif %}
+{% endblock %}

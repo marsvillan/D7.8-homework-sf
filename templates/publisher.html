@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+  
+{% block content %}
+Всего издательств {{ publishers|length }}:
+<ul>
+	{% for publisher in publishers %}
+	<li>{{ publisher.name }} ({{ publisher.allbooks }})</li>
+	{% endfor %}
+</ul>
+{% endblock %}

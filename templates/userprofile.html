@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load account %}
+{% load socialaccount %}
+  
+{% block content %}
+
+{% user_display user %}
+{% providers_media_js %}
+
+{% endblock %}
